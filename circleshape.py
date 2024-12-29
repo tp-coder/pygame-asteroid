@@ -24,7 +24,4 @@ class CircleShape(pygame.sprite.Sprite):
         pass
 
     def collision(self, collision_check):
-        if self.position.distance_to(collision_check.position) <= self.radius + collision_check.radius:
-            print("I entered the if statement")
-            return True
-        return False
+        return self.position.distance_to(collision_check.position) <= self.radius + collision_check.radius

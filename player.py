@@ -1,12 +1,13 @@
 import pygame
 from circleshape import CircleShape
-import constants
 from constants import *
+from shot import Shot
 
 class Player(CircleShape):
     def __init__(self, x, y):
-        super().__init__(x, y, constants.PLAYER_RADIUS)
+        super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
+        self.shot_cooldown = 0
 
     # in the player class
     def triangle(self):
@@ -22,16 +23,21 @@ class Player(CircleShape):
         pygame.draw.polygon(screen, (255, 255, 255), self.triangle(), width = 2)
 
     def rotate(self, dt, direction):
-        self.rotation += direction * constants.PLAYER_TURN_SPEED * dt
+        self.rotation += direction * PLAYER_TURN_SPEED * dt
     
     def move(self, dt, direction):
         forward = pygame.Vector2(0,1).rotate(self.rotation)
-        self.position += direction * forward * constants.PLAYER_SPEED * dt
+        self.position += direction * forward * PLAYER_SPEED * dt
+
+    def shoot(self, dt):
+        shot_dir = pygame.Vector2(0,1).rotate(self.rotation)
+        shots = Shot(self.position.x, self.position.y, SHOT_RADIUS)
+        shots.velocity = shot_dir * PLAYER_SHOT_SPEED
+        self.shot_cooldown = PLAYER_SHOT_COOLDOWN
 
     def update(self, dt):
         # gets the key pressed on the keyboard
         keys = pygame.key.get_pressed()
-
         # move horiontally
         if keys[pygame.K_a] or keys[pygame.K_LEFT]: # move left
             self.rotate(dt, -1)
@@ -42,3 +48,8 @@ class Player(CircleShape):
             self.move(dt, 1)
         if keys[pygame.K_s] or keys[pygame.K_DOWN]: # move down
             self.move(dt, -1)
+        # shoot
+        if self.shot_cooldown <= 0:
+            if keys[pygame.K_SPACE]:
+                self.shoot(dt)
+        self.shot_cooldown -= dt

@@ -3,22 +3,21 @@
 import pygame
 import sys
 from pygame.locals import *
-import constants
 from constants import *
-from circleshape import CircleShape
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
     # initializing pygame modules
     pygame.init()
     # setting the screen to the values of constants currently defined as 1280 x 720
-    screen = pygame.display.set_mode(size=(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
+    screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
 
     print("Starting asteroids!")
-    print(f"Screen width: {constants.SCREEN_WIDTH}")
-    print(f"Screen height: {constants.SCREEN_HEIGHT}")
+    print(f"Screen width: {SCREEN_WIDTH}")
+    print(f"Screen height: {SCREEN_HEIGHT}")
 
     # creating a clock to control the screen frame rate
     clock = pygame.time.Clock()
@@ -28,14 +27,16 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
     # adding player objects into the groups
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
+    Shot.containers = (shots, updatable, drawable)
 
     # instanciate a player
-    player = Player(x = constants.SCREEN_WIDTH / 2, y = constants.SCREEN_HEIGHT / 2)
-    # instanciate asteroids
+    player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
+    # instanciate asteroids otherwise they don't spawn
     asteroid_field = AsteroidField()
 
     # creating an infinite game loop with a black screen
@@ -47,11 +48,17 @@ def main():
         # creating a pitch black screen
         screen.fill((0,0,0))
 
-        
         # moving the player object
         for update in updatable:
             update.update(dt)
         
+        # checking for collision between asteroids and shots
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.collision(asteroid):
+                    asteroid.split()
+                    shot.kill()
+
         # checking for collision between asteroids and the player
         for asteroid in asteroids:
             if asteroid.collision(player):
