@@ -1,11 +1,14 @@
 # this import allows us to use the
-# pygameopen source library
+# pygame open source library
 import pygame
+import sys
 from pygame.locals import *
 import constants
 from constants import *
+from circleshape import CircleShape
 from player import Player
-
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     # initializing pygame modules
@@ -24,11 +27,16 @@ def main():
     # groups that can hold and manage multiple game objects
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
     # adding player objects into the groups
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
 
     # instanciate a player
     player = Player(x = constants.SCREEN_WIDTH / 2, y = constants.SCREEN_HEIGHT / 2)
+    # instanciate asteroids
+    asteroid_field = AsteroidField()
 
     # creating an infinite game loop with a black screen
     running = True
@@ -39,12 +47,20 @@ def main():
         # creating a pitch black screen
         screen.fill((0,0,0))
 
-        # drawing the player
-        for draw in drawable:
-            draw.draw(screen)
+        
         # moving the player object
         for update in updatable:
             update.update(dt)
+        
+        # checking for collision between asteroids and the player
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                print("Game Over")
+                sys.exit()
+        
+        # drawing the player
+        for draw in drawable:
+            draw.draw(screen)
         
         # refreshing the display
         pygame.display.flip()
@@ -53,11 +69,6 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 running = False
-        
-        
-
-    # quitting the game once the loop ends
-    pygame.quit()
 
 
 if __name__ == "__main__":
