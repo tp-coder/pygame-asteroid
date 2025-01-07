@@ -8,7 +8,7 @@ class Shot(CircleShape):
 
     def draw(self, screen):
         # this will draw circles as asteroids on the screen
-        pygame.draw.circle(screen, (255, 255, 255), self.position, self.radius)
+        pygame.draw.circle(screen, (250, 149, 0), self.position, self.radius)
 
     def update(self, dt):
         # this will update the position of the asteroids and make them move on a straight line
