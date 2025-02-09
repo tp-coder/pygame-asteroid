@@ -25,7 +25,7 @@ def main():
     dt = 0
 
     # initializing pygame font
-    font = pygame.font.Font(None, 36)
+    font = pygame.font.Font(None, 24)
     
     # groups that can hold and manage multiple game objects
     updatable = pygame.sprite.Group()
