@@ -43,10 +43,12 @@ def main():
     # instanciate asteroids otherwise they don't spawn
     asteroid_field = AsteroidField()
 
-    # rendering the player score
-    def render_score(screen, score):
+    # rendering the player score and remaining lives
+    def render_score_and_lives(screen, score, lives):
         score_text = font.render(f"Score: {score}", True, (255, 255, 255))
+        lives_text = font.render(f"Lives: {lives}", True, (255, 255, 255))
         screen.blit(score_text, (10, 10))
+        screen.blit(lives_text, (10, 30))
 
     # creating an infinite game loop with a black screen
     running = True
@@ -73,15 +75,15 @@ def main():
         # checking for collision between asteroids and the player
         for asteroid in asteroids:
             if asteroid.collision(player):
-                print("Game Over")
-                sys.exit()
+                player.lose_life()
+                asteroid.split()
         
         # drawing the player
         for draw in drawable:
             draw.draw(screen)
         
         # rendering the player score
-        render_score(screen, player.score)
+        render_score_and_lives(screen, player.score, player.lives)
 
         # refreshing the display
         pygame.display.flip()
