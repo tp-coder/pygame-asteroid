@@ -14,6 +14,7 @@ def main():
     pygame.init()
     # setting the screen to the values of constants currently defined as 1280 x 720
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("tp-coder Pygame Asteroids")
 
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -22,6 +23,9 @@ def main():
     # creating a clock to control the screen frame rate
     clock = pygame.time.Clock()
     dt = 0
+
+    # initializing pygame font
+    font = pygame.font.Font(None, 36)
     
     # groups that can hold and manage multiple game objects
     updatable = pygame.sprite.Group()
@@ -38,6 +42,11 @@ def main():
     player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
     # instanciate asteroids otherwise they don't spawn
     asteroid_field = AsteroidField()
+
+    # rendering the player score
+    def render_score(screen, score):
+        score_text = font.render(f"Score: {score}", True, (255, 255, 255))
+        screen.blit(score_text, (10, 10))
 
     # creating an infinite game loop with a black screen
     running = True
@@ -56,6 +65,8 @@ def main():
         for asteroid in asteroids:
             for shot in shots:
                 if shot.collision(asteroid):
+                    # calling asteroids.get_score method to increase the player score
+                    player.increase_score(asteroid.get_points())
                     asteroid.split()
                     shot.kill()
 
@@ -69,6 +80,9 @@ def main():
         for draw in drawable:
             draw.draw(screen)
         
+        # rendering the player score
+        render_score(screen, player.score)
+
         # refreshing the display
         pygame.display.flip()
 

@@ -25,3 +25,11 @@ class Asteroid(CircleShape):
     def update(self, dt):
         # this will update the position of the asteroids and make them move on a straight line
         self.position += self.velocity * dt
+
+    def get_points(self):
+        if self.radius == ASTEROID_MIN_RADIUS:
+            return 100
+        elif self.radius > ASTEROID_MIN_RADIUS and self.radius <= ASTEROID_MIN_RADIUS * 2:
+            return 75
+        else:
+            return 50
