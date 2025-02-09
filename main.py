@@ -32,6 +32,7 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
+
     # adding player objects into the groups
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
@@ -49,6 +50,28 @@ def main():
         lives_text = font.render(f"Lives: {lives}", True, (255, 255, 255))
         screen.blit(score_text, (10, 10))
         screen.blit(lives_text, (10, 30))
+
+    # Print Game Over and give player the option to quit or restart
+    def game_over_screen(screen):
+        game_over_text = font.render("Game Over", True, (255, 255, 255))
+        restart_text = font.render("Press R to restart the game or Q to quit", True, (255, 255, 255))
+        screen.blit(game_over_text, (SCREEN_WIDTH / 2 - game_over_text.get_width() / 2, SCREEN_HEIGHT / 2 - 50))
+        screen.blit(restart_text, (SCREEN_WIDTH / 2 - restart_text.get_width() / 2, SCREEN_HEIGHT / 2 + 10))
+        pygame.display.flip()
+
+        waiting = True
+        while waiting:
+            for event in pygame.event.get():
+                if event.type == KEYDOWN:
+                    if event.type == QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    if event.key == K_r:
+                        waiting = False
+                        main()
+                    elif event.key == K_q:
+                        pygame.quit()
+                        sys.exit()
 
     # creating an infinite game loop with a black screen
     running = True
@@ -77,6 +100,9 @@ def main():
             if asteroid.collision(player):
                 player.lose_life()
                 asteroid.split()
+                if player.lives <= 0:
+                    game_over_screen(screen)
+                    running = False
         
         # drawing the player
         for draw in drawable:

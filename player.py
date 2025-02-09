@@ -65,10 +65,6 @@ class Player(CircleShape):
         self.lives -= 1
         if self.lives > 0:
             self.respawn()
-        else:
-            print("Game Over")
-            pygame.quit()
-            sys.exit()
 
     def respawn(self):
         self.position = pygame.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
