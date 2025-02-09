@@ -4,9 +4,9 @@ A python game build using pygame for fun!
 
 # Ideas to extending the game!
 
-- [ x ] Add a scoring system
-- [ x ] Implement multiple lives and respawning
-- [ x ] Implemented Game Over window with possibility to restart or quit the game
+- [x] Add a scoring system
+- [x] Implement multiple lives and respawning
+- [x] Implemented Game Over window with possibility to restart or quit the game
 - [ ] Add an explosion effect for the asteroids
 - [ ] Add acceleration to the player movement
 - [ ] Make the objects wrap around the screen instead of disappearing
