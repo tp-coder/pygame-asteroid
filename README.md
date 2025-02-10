@@ -8,7 +8,7 @@ If you want to clone and play it yourself, go for it! Below are the steps to run
 ## Environment
 
 The game was built using Windows Subsystem Linux - WSL. Thus if you are on a Windows System, first enable WSL.
-Here are the steps to do it: [How to install WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
+Here are the steps to do it: [How to install WSL](https://learn.microsoft.com/en-us/windows/wsl/install).  
 Now that we have a Linux environment, let's make the game work!
 
 ## Running the game
