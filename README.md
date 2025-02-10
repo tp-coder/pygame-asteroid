@@ -3,7 +3,8 @@
 Thank you for accessing this Asteroids game repo!
 This began as a guided Boot.dev project on their backend formation. Now I maintain it for fun and to test additional ideas to the game.
 
-If you want to clone and play it yourself, go for it! Below are the steps to run it on your machine.
+If you want to clone and play it yourself, go for it!  
+Below are the steps to run it on your machine.
 
 ## Environment
 
@@ -34,7 +35,7 @@ To run the game, follow the steps:
 - [x] Implemented Game Over window with possibility to restart or quit the game
 - [ ] Add an explosion effect for the asteroids
 - [ ] Add acceleration to the player movement
-- [ ] Make the objects wrap around the screen instead of disappearing
+- [x] Make the objects wrap around the screen instead of disappearing
 - [ ] Add a background image
 - [ ] Create different weapon types
 - [ ] Make the asteroids lumpy instead of perfectly round

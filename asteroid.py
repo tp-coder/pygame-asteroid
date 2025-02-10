@@ -25,6 +25,17 @@ class Asteroid(CircleShape):
     def update(self, dt):
         # this will update the position of the asteroids and make them move on a straight line
         self.position += self.velocity * dt
+        self.wrap_around_screen()
+    # make the asteroids wrap around the screen
+    def wrap_around_screen(self):
+        if self.position.x < 0:
+            self.position.x = SCREEN_WIDTH
+        if self.position.x > SCREEN_WIDTH:
+            self.position.x = 0
+        if self.position.y < 0:
+            self.position.y = SCREEN_HEIGHT
+        if self.position.y > SCREEN_HEIGHT:
+            self.position.y = 0
 
     def get_points(self):
         if self.radius == ASTEROID_MIN_RADIUS:
