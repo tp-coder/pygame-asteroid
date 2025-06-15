@@ -36,6 +36,7 @@ To run the game, follow the steps:
 - [x] Implemented Game Over window with possibility to restart or quit the game
 - [x] Add control explanation before the game begins 
 - [x] Reset asteroids on player death
+- [x] Added highscore feature
 - [ ] Add an explosion effect for the asteroids
 - [ ] Add acceleration to the player movement
 - [x] Make the objects wrap around the screen instead of disappearing
