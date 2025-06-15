@@ -27,6 +27,30 @@ def main():
     # initializing pygame font
     font = pygame.font.Font(None, 24)
     
+    def show_controls_screen(screen, font):
+        controls = [
+            "Controls:",
+            "Move: W/A/S/D or Arrow Keys",
+            "Shoot: Space",
+            "Restart: R (after game over)",
+            "Quit: Q (after game over)",
+            "",
+            "Press any key to start..."
+        ]
+        screen.fill((0, 0, 0))
+        for i, line in enumerate(controls):
+            text = font.render(line, True, (255, 255, 255))
+            screen.blit(text, (SCREEN_WIDTH // 2 - text.get_width() // 2, 200 + i * 30))
+        pygame.display.flip()
+        waiting = True
+        while waiting:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    waiting = False
+
     # groups that can hold and manage multiple game objects
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -43,6 +67,9 @@ def main():
     player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
     # instanciate asteroids otherwise they don't spawn
     asteroid_field = AsteroidField()
+
+    # Show controls screen before starting the game loop
+    show_controls_screen(screen, font)
 
     # rendering the player score and remaining lives
     def render_score_and_lives(screen, score, lives):

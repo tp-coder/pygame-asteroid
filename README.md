@@ -24,15 +24,17 @@ To run the game, follow the steps:
 5. Run the virtual environment - run `source venv/bin/activate`
    You should see a (venv) before the user
    ![venv indication](./img/venv.ss.png "venv indication")
-6. Make sure you are on the main.py file folder
-7. Run main.py
-   - run `python 3 main.py`
+6. Install requirements, run: `pip install -requirements.txt`
+7. Make sure you are on the main.py file folder
+8. Run the game
+   - run `python3 main.py`
 
 ## Features to come!
 
 - [x] Add a scoring system
 - [x] Implement multiple lives and respawning
 - [x] Implemented Game Over window with possibility to restart or quit the game
+- [ ] Add control explanation before the game begins 
 - [ ] Add an explosion effect for the asteroids
 - [ ] Add acceleration to the player movement
 - [x] Make the objects wrap around the screen instead of disappearing
